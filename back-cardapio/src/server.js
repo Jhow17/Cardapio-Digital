@@ -1,6 +1,7 @@
 import express, { json } from 'express'
 import router from './routes.js'
 import Barraca from './models/Barraca.js'
+import Comida from './models/Comida.js'
 import { Sequelize } from 'sequelize'
 import cors from 'cors'
 import config from './config/database.js'
@@ -17,6 +18,11 @@ app.use(cors());
 const sequelize = new Sequelize(config)
 
 Barraca.init(sequelize)
+Comida.init(sequelize)
+
+// Configura as associacoes
+Barraca.associate(sequelize.models);
+Comida.associate(sequelize.models); 
 
 // quando tiver uma requisiçao em barracas
 app.use('/barracas', router)
@@ -28,6 +34,6 @@ sequelize.authenticate().then( ()=> {
   app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-}).catch((erro) => {console.log('Fudeu de Vez')})
+}).catch((erro) => {console.log('Ferro de Vez')})
 
 

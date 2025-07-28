@@ -9,13 +9,12 @@ const Barracas = () => {
   
   useEffect(() => {
     const axiosGet = async () => {
-      try { // <--- Ponto 3: Adicionar tratamento de erro
-        const response = await axios.get("http://192.168.0.18:3001/barracas/todas"); // <--- Ponto 4: URL Completa
-        console.log("Dados da API:", response); // Para depuração
-        setDBbarracas(response.data.message); // <--- Ponto 5: Acessar a propriedade correta da respost
+      try {
+        const response = await axios.get("http://192.168.0.18:3001/barracas/todas"); 
+        console.log("Dados da API:", response); 
+        setDBbarracas(response.data.message); 
       } catch (error) {
-        console.error("Erro ao buscar dados da API:", error); // Logar o erro
-        // Opcional: setar um estado de erro ou mostrar mensagem ao usuário
+        console.error("Erro ao buscar dados da API:", error); 
       }
     }
     axiosGet()

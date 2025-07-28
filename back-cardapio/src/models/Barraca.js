@@ -17,9 +17,14 @@ class Barraca extends Model{
                 allowNull : false
           },}
             
-            ,{sequelize})
+            ,{sequelize,
+            tableName: 'barracas',
+            timestamps: true})
 
 
+    }
+    static associate(models){
+        this.hasMany(models.Comida, { foreignKey: 'barraca_id', as: 'comidas' })
     }
 }
 

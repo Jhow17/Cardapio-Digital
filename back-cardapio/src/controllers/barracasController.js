@@ -44,124 +44,14 @@ class BarracaController {
 
 
     const barracasData = [
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Acarajé da Baiana',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "COMIDA BAHIANA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Burguer do Chef',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "HAMBURGUERIA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Pizzaria Napolitana',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "PIZZARIA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Temaki Express',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "COMIDA JAPONESA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Doces da Vovó',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "DOCES E SOBREMESAS"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Esfiha Árabe Autêntica',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "COMIDA ÁRABE"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Churrasquinho do Zé',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "CHURRASCO"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Tapiocaria da Roça',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "COMIDA NORDESTINA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Massas Italianas da Nona',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "COMIDA ITALIANA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Café com Arte',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "CAFETERIA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Crepe Francês Saboroso',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "CREPERIA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Sucos Naturais do Pomar',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "BEBIDAS SAUDÁVEIS"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Cantinho Mineiro',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "COMIDA BRASILEIRA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Cachorro Quente Gourmet',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "LANCHES RÁPIDOS"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Sushi Prime',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "COMIDA JAPONESA"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Bolo da Confeiteira',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "DOCES E SOBREMESAS"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Frutos do Mar Frescos',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "FRUTOS DO MAR"
-    },
-    {
-        id: crypto.randomUUID(), // ID gerado aqui!
-        name: 'Coxinha da Hora',
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtzHJEXKvgiadk3GdDVm3jCe8X3s2xk9e4w&s",
-        categoria: "SALGADOS"
-    }
+   
     ];
 
         const createdBarracas = [];
         let errorOccurred = false;
 
         try {
-            // Opcional: Limpar a tabela antes de popular
-            // CUIDADO: Isso apaga todos os dados existentes na tabela 'barracas'
-            // await Barraca.destroy({ truncate: true });
-
+            
             // Itera sobre cada item do array barracasData
             for (const barracaItem of barracasData) {
                 try {
