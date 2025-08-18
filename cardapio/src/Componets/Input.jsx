@@ -5,7 +5,7 @@ const Input = ({placeholder, aoMudar}) => {
     <>
         <input onChange={(e)=>{
           aoMudar(e.target.value)
-        }} className='bg-white text-black border-2 p-2 rounded-lg mb-4' type="text" placeholder={placeholder} />
+        }} className='bg-white text-black border-2 p-2 rounded-lg mb-4'  type="text" placeholder={placeholder} />
     </>
   )
 }

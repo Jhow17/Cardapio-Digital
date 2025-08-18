@@ -23,7 +23,7 @@ const Upload = () => {
         formData.append('cardapioCsv', selecFile)
         try {
             const response = await axios.post(
-                `http://192.168.0.18:3001/barracas/cardapio/${id}`, 
+                `http://192.168.0.15:3001/barracas/cardapio/${id}`, 
                 formData,{
                     headers: {
                     'Content-Type': 'multipart/form-data',}

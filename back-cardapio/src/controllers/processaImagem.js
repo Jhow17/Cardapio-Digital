@@ -3,33 +3,54 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
-// Converts local file information to a GoogleGenerativeAI.Part object.
-function fileToGenerativePart(path, mimeType) {
+function fileToGenerativePart(file, mimeType) {
   return {
     inlineData: {
-      data: Buffer.from(fs.readFileSync(path)).toString("base64"),
+      data: file.toString("base64"),
       mimeType
     },
   };
 }
 
-async function run(image) {
-  // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
+async function run(file, mimeType) {
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  const prompt = "Analise a imagem do cardápio fornecida. Para cada item listado, extraia o nome, uma descrição concisa e o preço. Crie um objeto JSON para cada item no formato {'name': 'Nome do Item', 'description': 'Breve descrição do item', 'price': 00.00}. Priorize a precisão dos dados, especialmente para nomes e preços. Se a descrição for ambígua ou inexistente, use uma string vazia. Se o preço não for legível, use 0.00. depois colque todos os objetos em uma lista";
+  const prompt = "Analise a imagem do cardápio fornecida. Para cada item listado, extraia o nome, uma descrição concisa e o preço. Crie um objeto JSON para cada item no formato {'nome': 'Nome do Item', 'descricao': 'Breve descrição do Item', 'preco': 00.00}. Priorize a precisão dos dados, especialmente para nomes e preços. Se a descrição for ambígua ou inexistente, use uma string vazia. Se o preço não for legível, use 0.00. Não inclua texto introdutório na resposta. Apenas retorne a lista de objetos JSON.";
 
   const imageParts = [
-    fileToGenerativePart("image1.png", "image/png"),
+    fileToGenerativePart(file, mimeType),
   ];
+  try {
+    const result = await model.generateContent([prompt, ...imageParts]);
+    const response = await result.response;
+    let text = response.text();
+    
 
-  const result = await model.generateContent([prompt, ...imageParts]);
-  const response = await result.response;
-  const text = response.json();
-  console.log(text);
-  return text
+    console.log("bruta da API:", text);
+    
+    
+    const codeBlockRegex = /```json\s*([\s\S]*?)\s*```/;
+    const match = text.match(codeBlockRegex);
+
+    if (match && match[1]) {
+       
+        text = match[1].trim();
+        console.log("JSON extraído do bloco de código:", text);
+    } else {
+
+        text = text.trim();
+        console.log("JSON assumido como puro:", text);
+    }
+  
+
+    const parsedJson = JSON.parse(text); 
+    return parsedJson;
+
+  } catch (e) {
+    console.error('Erro na Api:', e.message);
+    throw new Error('Falha ao processar a imagem com a API Gemini.');
+  }
 }
 
-export default run
+export default run;

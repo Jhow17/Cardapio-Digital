@@ -4,6 +4,7 @@ import run from "./processaImagem.js";
 import csv from 'csv-parser'; 
 import { Readable } from 'stream';
 
+
 class ComidaController{
     static async getCardapio(req, res){
          try {
@@ -29,7 +30,7 @@ class ComidaController{
         const comida = await Comida.create(comidaCreate)
        
         res.status(201).json({message : "Barracas", criado : comida})
-}   
+    }   
  
 
     static async createCardapio (req, res) {
@@ -41,61 +42,77 @@ class ComidaController{
             if(!existeBarraca){
                 return res.status(400).json({ message: "Barraca não encontrada" })
             }
-            if (!req.file || (req.file.mimetype !== 'text/csv' && req.file.mimetype !== 'application/vnd.ms-excel')){
-                return res.status(400).json({ message: "Insira um arquuivo csv" })
+            if (!req.file || (req.file.mimetype !== 'text/csv' && req.file.mimetype !== 'image/jpeg' && req.file.mimetype !== 'image/png')){
+                return res.status(400).json({ message: "Insira um arquivo csv ou uma Imagem" })
             }
             const bufferStorage = req.file.buffer
-            const listaConvertida =  []
-
-            //tirando do buffer
-            const streamCSV = Readable.from(bufferStorage.toString('utf8'));
-            await new Promise((resolve, reject) => {
-                streamCSV
-                    .pipe(csv()) 
-                    // cada row vai ter nome comida; preco; descriçao 
-                    .on('data', (row) => {
-                        listaConvertida.push({
-                            nome: row['name'],      
-                            preco: parseFloat(row['price']),  
-                            descricao: row['description'] || '' 
-                        });
-                    })
-                    .on('end', () => {
-                        resolve();
-                    })
-                    .on('error', (err) => {
-                        console.error('Erro ao parsear CSV:', err);
-                        parserError = err;
-                        reject(err);
-                    });
-            });
-             if (listaConvertida.length === 0) {
-                return res.status(400).json({ message: 'Nenhum item de cardápio válido encontrado no arquivo CSV.' });
-            }
-            const comidasCreated = [];
+            let listaConvertida =  []
             
-            for (const comida of listaConvertida){
-                const comidaCreate = {
-                        barraca_id: barracaId,
-                        name: comida.nome,
-                        description: comida.descricao,
-                        price: comida.preco,
-                    };
-                    const comidaCriada =  await Comida.create(comidaCreate);
-                    comidasCreated.push(comidaCriada)
+            
+            if (req.file.mimetype == 'image/jpeg' || req.file.mimetype == 'image/png'){
+                listaConvertida = await run(bufferStorage, req.file.mimetype)
+                console.log(listaConvertida)
             }
+                
+                
+            else{
+                
+                //tirando do buffer
+                // fazendo a leitura com o Readable de leitura assincrona
+                const streamBuff = Readable.from(bufferStorage.toString('utf8'));
+                
+                await new Promise((resolve, reject) => {
+                    streamBuff.pipe(csv()) 
+                        // cada row vai ter nome comida; preco; descriçao 
+                        .on('data', (row) => {
+                            listaConvertida.push({
+                                nome: row['name'],      
+                                preco: parseFloat(row['price']),  
+                                descricao: row['description'] || '' 
+                            });
+                        })
+                        .on('end', () => {
+                            resolve();
+                        })
+                        .on('error', (err) => {
+                            console.error('Erro ao parsear CSV:', err);
+                            parserError = err;
+                            reject(err);
+                        });
+                });
+                if (listaConvertida.length === 0) {
+                    return res.status(400).json({ message: 'Nenhum item de cardápio válido encontrado no arquivo CSV.' });
+                }
+                } // do else
+                const comidasCreated = []; // Variável para armazenar itens criados com sucesso
+                
+                
+                for (const comida of listaConvertida){
+                    const comidaCreate = {
+                            barraca_id: barracaId,
+                            name: comida.nome,
+                            description: comida.descricao,
+                            price: comida.preco,
+                        };
+                        const comidaCriada =  await Comida.create(comidaCreate);
+                        comidasCreated.push(comidaCriada)}
 
-           return res.status(201).json({
-                    message: "Cardápio processado e todos os itens criados", 
-                    count: comidasCreated.length, created: comidasCreated});
+                return res.status(201).json({
+                        message: "Cardápio processado e todos os itens criados", 
+                        count: comidasCreated.length, created: comidasCreated});
 
-        }catch(error){
+            
+                
+            
+        } catch(error){ // do try
             console.error('Ferro Geral:', error);
             return res.status(500).json({ message: "Erro servidor com o cardápio CSV.", error: error.message });
 
         }
-} 
+    
 
-}
+    } // do metodo
 
+
+} // da classe
 export default ComidaController

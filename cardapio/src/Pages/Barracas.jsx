@@ -10,7 +10,7 @@ const Barracas = () => {
   useEffect(() => {
     const axiosGet = async () => {
       try {
-        const response = await axios.get("http://192.168.0.18:3001/barracas/todas"); 
+        const response = await axios.get("http://192.168.0.15:3001/barracas/todas"); 
         console.log("Dados da API:", response); 
         setDBbarracas(response.data.message); 
       } catch (error) {
@@ -29,10 +29,14 @@ const Barracas = () => {
  
   return (
     
-    <section className=' min-w-full min-h-screen'>
-      <div className='container mx-auto px-2 py-9'>
-        <h2 className='text-3xl'>Barracas</h2>
-         <Input aoMudar={searchBarraca} placeholder={'O que vai comer hoje ?'}/> 
+    <section className='min-h-screen overflow-hidden'>
+      <div className='container mx-auto py-9'>
+        <div className='w-1/2 mx-auto'>
+           <h2 className='text-3xl'>Barracas</h2>
+          <Input aoMudar={searchBarraca} placeholder={'O que vai comer hoje ?'}/>
+
+        </div>
+        
         <div className='grid grid-cols-1 grid-rows-3 gap-4 md:grid-cols-3 lg:grid-cols-4 '>
           {barrasPesquisadas.map(({id, name, imagem, categoria}) =>(
             

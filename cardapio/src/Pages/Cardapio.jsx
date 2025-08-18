@@ -11,7 +11,7 @@ const Cardapio = () => {
    useEffect(() => {
       const axiosGet = async () => {
         try { 
-          const response = await axios.get(`http://192.168.0.18:3001/barracas/cardapio/${id}`); 
+          const response = await axios.get(`http://192.168.0.15:3001/barracas/cardapio/${id}`); 
           console.log("Dados da API cardapio:", response); 
 
           setDBCradapio(response.data.message); 

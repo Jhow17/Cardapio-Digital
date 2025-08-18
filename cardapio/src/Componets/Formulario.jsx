@@ -15,7 +15,7 @@ const Formulario = () => {
             categoria : valorSelec
           }
         try {
-            const response =  await axios.post("http://192.168.0.18:3001/barracas/cadastro", data)
+            const response =  await axios.post("http://192.168.0.15:3001/barracas/cadastro", data)
             console.log('Barraca criada com sucesso:', response.data)
             alert('Barraca cadastrada com sucesso!'); // Use um modal ou notificação real em vez de alert
         }catch(error){
