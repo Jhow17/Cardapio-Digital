@@ -6,12 +6,13 @@ import Upload from '../Componets/Upload.jsx';
 
 const Cardapio = () => {
   const [DBCardapio, setDBCradapio] = useState([])
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const { id } = useParams();
   console.log(id)
    useEffect(() => {
       const axiosGet = async () => {
         try { 
-          const response = await axios.get(`http://192.168.0.15:3001/barracas/cardapio/${id}`); 
+          const response = await axios.get(`${backendUrl}/barracas/cardapio/${id}`); 
           console.log("Dados da API cardapio:", response); 
 
           setDBCradapio(response.data.message); 

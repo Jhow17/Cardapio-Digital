@@ -5,6 +5,7 @@ import axios from 'axios'
 const Upload = () => {
     const [selecFile, setSelectedFile] = useState(null)
     const { id } = useParams();
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
     const manipulaFile = (event) => {
         if(event.target.files && event.target.files[0]){
@@ -23,7 +24,7 @@ const Upload = () => {
         formData.append('cardapioCsv', selecFile)
         try {
             const response = await axios.post(
-                `http://192.168.0.15:3001/barracas/cardapio/${id}`, 
+                `${backendUrl}/barracas/cardapio/${id}`, 
                 formData,{
                     headers: {
                     'Content-Type': 'multipart/form-data',}

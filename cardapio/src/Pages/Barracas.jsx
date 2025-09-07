@@ -6,11 +6,13 @@ import Formulario from '../Componets/Formulario.jsx';
 const Barracas = () => {
   const [barrasPesquisadas, setBarracas] = useState([])
   const [dbbarracas, setDBbarracas] = useState([])
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   
   useEffect(() => {
     const axiosGet = async () => {
       try {
-        const response = await axios.get("http://192.168.0.15:3001/barracas/todas"); 
+        //paginaçao para limitar o numero de barracas para o array (dados desnecessarios)
+        const response = await axios.get(`${backendUrl}/barracas/todas`); 
         console.log("Dados da API:", response); 
         setDBbarracas(response.data.message); 
       } catch (error) {
