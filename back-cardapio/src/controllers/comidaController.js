@@ -38,6 +38,7 @@ class ComidaController{
         console.log(req.file)
 
         try{
+            // adicionar a funcionalidade de excluir o antigo cardapio para adicionar o novo
             const existeBarraca = await Barraca.findByPk(barracaId)
             if(!existeBarraca){
                 return res.status(400).json({ message: "Barraca não encontrada" })

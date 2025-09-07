@@ -1,9 +1,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-
+console.log(`CHANE DA API: ${genAI}`)
 function fileToGenerativePart(file, mimeType) {
   return {
     inlineData: {
@@ -29,6 +29,7 @@ async function run(file, mimeType) {
 
     console.log("bruta da API:", text);
     
+    console.log("bruta da API:", genAI);
     
     const codeBlockRegex = /```json\s*([\s\S]*?)\s*```/;
     const match = text.match(codeBlockRegex);
@@ -50,6 +51,7 @@ async function run(file, mimeType) {
 
   } catch (e) {
     console.error('Erro na Api:', e.message);
+    console.log("bruta da API:", genAI);
     throw new Error('Falha ao processar a imagem com a API Gemini.');
   }
 }
