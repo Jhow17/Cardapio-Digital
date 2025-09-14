@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-console.log(`CHANE DA API: ${genAI}`)
+console.log(`CHAVE DA API: ${genAI}`)
 function fileToGenerativePart(file, mimeType) {
   return {
     inlineData: {
@@ -34,7 +34,7 @@ async function run(file, mimeType) {
     const codeBlockRegex = /```json\s*([\s\S]*?)\s*```/;
     const match = text.match(codeBlockRegex);
 // se tem o match pega o segundo item do array devolvido por ele que normalmente é a expressao processada
-//["Capítulo 3.4.5.1","Capítulo 3.4.5.1",".1",index: 33,input: "Para maiores informações, veja o Capítulo 3.4.5.1"]
+//Capítulo 3.4
     if (match && match[1]) {
        
         text = match[1].trim();

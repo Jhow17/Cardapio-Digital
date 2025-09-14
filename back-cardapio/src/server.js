@@ -6,7 +6,7 @@ import { Sequelize } from 'sequelize'
 import cors from 'cors'
 import config from './config/database.js'
 const app = express()
-const port = 3001
+const port = process.env.PORT || 3001;
 
 // middleware para escutar json
 app.use(express.json())
